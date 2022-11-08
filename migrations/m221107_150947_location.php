@@ -16,6 +16,10 @@ class m221107_150947_location extends Migration
             'id' => $this->primaryKey(),
             'name' => $this->string()->notNull(),
         ]);
+
+        $this->db->createCommand("CREATE OR REPLACE TRIGGER t_if_modified_trg 
+        AFTER INSERT OR UPDATE OR DELETE ON audit.locations
+        FOR EACH ROW EXECUTE PROCEDURE audit.if_modified_func();");
     }
 
     /**
