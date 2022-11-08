@@ -2,6 +2,10 @@
 
 namespace app\controllers;
 
+use app\models\CaseStageModel;
+use app\models\CaseTypeModel;
+use app\models\LocationModel;
+use app\models\SatKerModel;
 use Exception;
 use Yii;
 use yii\web\Controller;
@@ -21,8 +25,7 @@ class MigrateController extends Controller
         if (YII_ENV_DEV) {
             $this->createSchema();
             $this->actionMigrate();
-
-            sleep(3);
+            $this->seedData();
 
             return $this->redirect("/index");
         } else {
@@ -42,6 +45,7 @@ class MigrateController extends Controller
         \Yii::$app = $oldApp;
         return $result;
     }
+
 
     public function createSchema()
     {
@@ -129,5 +133,43 @@ class MigrateController extends Controller
         SECURITY DEFINER
         SET search_path = pg_catalog, audit;
         ")->execute();
+    }
+
+
+    public function seedData()
+    {
+        $caseStageModel = new CaseStageModel();
+
+        if (count($caseStageModel->find()->all()) == 0) {
+            $caseStageModel->name = "SPDP";
+            $caseStageModel->save();
+            $caseStageModel->name = "Penunjukan Jaksa Peneliti";
+            $caseStageModel->save();
+        }
+
+        $caseTypeModel = new CaseTypeModel();
+        if (count($caseTypeModel->find()->all()) == 0) {
+            $caseTypeModel->name = "KAMNEGTIBUM DAN TPUL";
+            $caseTypeModel->save();
+            $caseTypeModel->name = "NARKOTIKA";
+            $caseStageModel->save();
+        }
+
+        $locationModel = new LocationModel();
+        if (count($locationModel->find()->all()) == 0) {
+            $locationModel->name = "Bandung";
+            $locationModel->save();
+            $locationModel->name = "Jakarta Pusat";
+            $locationModel->save();
+        }
+
+        $satkerModel = new SatKerModel();
+
+        if (count($satkerModel->find()->all()) == 0) {
+            $satkerModel->name = "KEJAKSAAN NEGERI KAMPAR";
+            $satkerModel->save();
+            $satkerModel->name = "KEJAKSAAN NEGERI LANGKAT";
+            $satkerModel->save();
+        }
     }
 }
