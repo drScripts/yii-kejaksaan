@@ -3,7 +3,7 @@ FROM php:8.1-fpm
 RUN apt-get update
 
 # Install Postgre PDO
-RUN apt-get install -y libpq-dev git \
+RUN apt-get install -y libpq-dev \
     && docker-php-ext-configure pgsql -with-pgsql=/usr/local/pgsql \
     && docker-php-ext-install pdo pdo_pgsql pgsql
 
@@ -14,7 +14,6 @@ COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
 WORKDIR /app
 COPY . /app
-RUN composer update
 RUN composer install
 
 EXPOSE 8080
