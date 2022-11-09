@@ -3,6 +3,14 @@
 $params = require __DIR__ . '/params.php';
 $db = require __DIR__ . '/db.php';
 
+
+
+$baseUrl = "http://localhost";
+
+if ($_ENV["BASE_URL"]) {
+    $baseUrl = $_ENV["BASE_URL"];
+}
+
 $config = [
     'id' => 'basic',
     'basePath' => dirname(__DIR__),
@@ -15,7 +23,7 @@ $config = [
         'request' => [
             // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
             'cookieValidationKey' => 'Ti2cfj7xGhGvzYc0O9t95R3D1KepHz9l',
-            'hostInfo' => $_ENV["BASE_URL"],
+            'hostInfo' => $baseUrl,
         ],
         'cache' => [
             'class' => 'yii\caching\FileCache',
