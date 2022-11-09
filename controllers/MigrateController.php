@@ -25,6 +25,7 @@ class MigrateController extends Controller
         if (YII_ENV_DEV) {
             $this->createSchema();
             $this->actionMigrate();
+            $this->attachMigrate();
             $this->seedData();
 
             return $this->redirect("/index");
@@ -171,5 +172,28 @@ class MigrateController extends Controller
             $satkerModel->name = "KEJAKSAAN NEGERI LANGKAT";
             $satkerModel->save();
         }
+    }
+
+    public function attachMigrate()
+    {
+        Yii::$app->db->createCommand("CREATE OR REPLACE TRIGGER t_if_modified_trg 
+        AFTER INSERT OR UPDATE OR DELETE ON audit.caseTypes
+        FOR EACH ROW EXECUTE PROCEDURE audit.if_modified_func();")->execute();
+
+        Yii::$app->db->createCommand("CREATE OR REPLACE TRIGGER t_if_modified_trg 
+        AFTER INSERT OR UPDATE OR DELETE ON audit.satkers
+        FOR EACH ROW EXECUTE PROCEDURE audit.if_modified_func();")->execute();
+
+        Yii::$app->db->createCommand("CREATE OR REPLACE TRIGGER t_if_modified_trg 
+        AFTER INSERT OR UPDATE OR DELETE ON audit.locations
+        FOR EACH ROW EXECUTE PROCEDURE audit.if_modified_func();")->execute();
+
+        Yii::$app->db->createCommand("CREATE OR REPLACE TRIGGER t_if_modified_trg 
+        AFTER INSERT OR UPDATE OR DELETE ON audit.caseStages
+        FOR EACH ROW EXECUTE PROCEDURE audit.if_modified_func();")->execute();
+
+        Yii::$app->db->createCommand("CREATE OR REPLACE TRIGGER t_if_modified_trg 
+        AFTER INSERT OR UPDATE OR DELETE ON audit.cases
+        FOR EACH ROW EXECUTE PROCEDURE audit.if_modified_func();")->execute();
     }
 }

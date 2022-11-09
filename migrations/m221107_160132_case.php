@@ -95,11 +95,6 @@ class m221107_160132_case extends Migration
             'id',
             'CASCADE'
         );
-
-
-        $this->db->createCommand("CREATE OR REPLACE TRIGGER t_if_modified_trg 
-        AFTER INSERT OR UPDATE OR DELETE ON audit.cases
-        FOR EACH ROW EXECUTE PROCEDURE audit.if_modified_func();")->execute();
     }
 
     /**
