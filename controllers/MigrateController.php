@@ -141,6 +141,39 @@ class MigrateController extends Controller
 
     public function seedData()
     {
+        $locationModel = new LocationModel();
+        if (count($locationModel->find()->all()) == 0) {
+            switch ($_ENV["APP_NAME"]) {
+                case 'satker-langkat':
+                    $locationModel->name = "KEJAKSAAN TINGGI SUMATERA UTARA";
+                    break;
+                case "satker-jakarta-utara":
+                    $locationModel->name = "KEJAKSAAN TINGGI DKI JAKARTA";
+                default:
+                    $locationModel->name = "KEJAKSAAN TINGGI JAWA TIMUR";
+                    break;
+            }
+
+            $locationModel->save();
+        }
+
+        $satkerModel = new SatKerModel();
+
+        if (count($satkerModel->find()->all()) == 0) {
+            switch ($_ENV["APP_NAME"]) {
+                case 'satker-langkat':
+                    $satkerModel->name = "KEJAKSAAN NEGERI LANGKAT";
+                    break;
+                case "satker-jakarta-utara":
+                    $satkerModel->name = "KEJAKSAAN NEGERI JAKARTA UTARA";
+                default:
+                    $locationModel->name = "KEJAKSAAN NEGERI SURABAYA";
+                    break;
+            }
+
+            $satkerModel->save();
+        }
+
         $caseStageModel = new CaseStageModel();
 
         if (count($caseStageModel->find()->all()) == 0) {
@@ -152,25 +185,6 @@ class MigrateController extends Controller
         if (count($caseTypeModel->find()->all()) == 0) {
             $caseTypeModel->name = "KAMNEGTIBUM DAN TPUL";
             $caseTypeModel->save();
-        }
-
-        $locationModel = new LocationModel();
-        if (count($locationModel->find()->all()) == 0) {
-            $locationModel->name = "Bandung";
-            $locationModel->save();
-        }
-
-        $satkerModel = new SatKerModel();
-
-        if (count($satkerModel->find()->all()) == 0) {
-            $appName = "SATKER APP";
-
-            if (isset($_ENV["APP_NAME"])) {
-                $appName = $_ENV["APP_NAME"];
-            }
-
-            $satkerModel->name = $appName;
-            $satkerModel->save();
         }
     }
 
