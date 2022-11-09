@@ -10,7 +10,7 @@ use yii\grid\GridView;
 /** @var app\models\CaseModelSearch $searchModel */
 /** @var yii\data\ActiveDataProvider $dataProvider */
 
-$this->title = 'Case Models';
+$this->title = $this->title = $_ENV["APP_NAME"] . ' - Case Models';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="case-model-index">

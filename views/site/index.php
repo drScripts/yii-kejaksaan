@@ -2,7 +2,7 @@
 
 /** @var yii\web\View $this */
 
-$this->title = 'My Yii Application';
+$this->title = $_ENV["APP_NAME"];
 ?>
 <div class="site-index">
 

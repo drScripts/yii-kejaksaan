@@ -5,7 +5,7 @@ use yii\helpers\Html;
 /** @var yii\web\View $this */
 /** @var app\models\CaseModel $model */
 
-$this->title = 'Create Case Model';
+$this->title = $this->title = $_ENV["APP_NAME"] . ' - Create Case Model';
 $this->params['breadcrumbs'][] = ['label' => 'Case Models', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>

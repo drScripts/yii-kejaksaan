@@ -5,7 +5,7 @@ use yii\helpers\Html;
 /** @var yii\web\View $this */
 /** @var app\models\SatKerModel $model */
 
-$this->title = 'Update Sat Ker Model: ' . $model->name;
+$this->title = $this->title = $_ENV["APP_NAME"] . '- Update Sat Ker Model: ' . $model->name;
 $this->params['breadcrumbs'][] = ['label' => 'Sat Ker Models', 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->name, 'url' => ['view', 'id' => $model->id]];
 $this->params['breadcrumbs'][] = 'Update';

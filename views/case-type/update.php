@@ -5,7 +5,7 @@ use yii\helpers\Html;
 /** @var yii\web\View $this */
 /** @var app\models\CaseTypeModel $model */
 
-$this->title = 'Update Case Type Model: ' . $model->name;
+$this->title = $this->title = $_ENV["APP_NAME"] . ' - Update Case Type Model: ' . $model->name;
 $this->params['breadcrumbs'][] = ['label' => 'Case Type Models', 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->name, 'url' => ['view', 'id' => $model->id]];
 $this->params['breadcrumbs'][] = 'Update';

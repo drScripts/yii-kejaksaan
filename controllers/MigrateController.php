@@ -25,7 +25,7 @@ class MigrateController extends Controller
         if (YII_ENV_DEV) {
             $this->createSchema();
             $this->actionMigrate();
-            // $this->attachMigrate();
+            $this->attachMigrate();
             $this->seedData();
 
             return $this->redirect("/index");
@@ -69,6 +69,7 @@ class MigrateController extends Controller
         Yii::$app->db->createCommand("revoke create on schema audit from public;")->execute();
 
         Yii::$app->db->createCommand("create table audit.logged_actions (
+            id serial primary key,
             schema_name text not null,
             table_name text not null,
             user_name text,
@@ -76,7 +77,8 @@ class MigrateController extends Controller
             action TEXT NOT NULL check (action in ('I','D','U')),
             original_data text,
             new_data text,
-            query text
+            query text,
+            is_synced boolean default false
         ) with (fillfactor=100);")->execute();
 
         Yii::$app->db->createCommand("revoke all on audit.logged_actions from public;")->execute();
@@ -144,55 +146,53 @@ class MigrateController extends Controller
         if (count($caseStageModel->find()->all()) == 0) {
             $caseStageModel->name = "SPDP";
             $caseStageModel->save();
-            $caseStageModel->name = "Penunjukan Jaksa Peneliti";
-            $caseStageModel->save();
         }
 
         $caseTypeModel = new CaseTypeModel();
         if (count($caseTypeModel->find()->all()) == 0) {
             $caseTypeModel->name = "KAMNEGTIBUM DAN TPUL";
             $caseTypeModel->save();
-            $caseTypeModel->name = "NARKOTIKA";
-            $caseStageModel->save();
         }
 
         $locationModel = new LocationModel();
         if (count($locationModel->find()->all()) == 0) {
             $locationModel->name = "Bandung";
             $locationModel->save();
-            $locationModel->name = "Jakarta Pusat";
-            $locationModel->save();
         }
 
         $satkerModel = new SatKerModel();
 
         if (count($satkerModel->find()->all()) == 0) {
-            $satkerModel->name = "KEJAKSAAN NEGERI KAMPAR";
-            $satkerModel->save();
-            $satkerModel->name = "KEJAKSAAN NEGERI LANGKAT";
+            $appName = "SATKER APP";
+
+            if (isset($_ENV["APP_NAME"])) {
+                $appName = $_ENV["APP_NAME"];
+            }
+
+            $satkerModel->name = $appName;
             $satkerModel->save();
         }
     }
 
     public function attachMigrate()
     {
-        Yii::$app->db->createCommand("CREATE OR REPLACE TRIGGER t_if_modified_trg 
-        AFTER INSERT OR UPDATE OR DELETE ON audit.caseTypes
+        Yii::$app->db->createCommand("CREATE OR REPLACE TRIGGER caseTypes_if_modified_trg
+        AFTER INSERT OR UPDATE OR DELETE ON audit.\"caseTypes\"
         FOR EACH ROW EXECUTE PROCEDURE audit.if_modified_func();")->execute();
 
-        Yii::$app->db->createCommand("CREATE OR REPLACE TRIGGER t_if_modified_trg 
+        Yii::$app->db->createCommand("CREATE OR REPLACE TRIGGER satkers_if_modified_trg
         AFTER INSERT OR UPDATE OR DELETE ON audit.satkers
         FOR EACH ROW EXECUTE PROCEDURE audit.if_modified_func();")->execute();
 
-        Yii::$app->db->createCommand("CREATE OR REPLACE TRIGGER t_if_modified_trg 
+        Yii::$app->db->createCommand("CREATE OR REPLACE TRIGGER locations_if_modified_trg
         AFTER INSERT OR UPDATE OR DELETE ON audit.locations
         FOR EACH ROW EXECUTE PROCEDURE audit.if_modified_func();")->execute();
 
-        Yii::$app->db->createCommand("CREATE OR REPLACE TRIGGER t_if_modified_trg 
-        AFTER INSERT OR UPDATE OR DELETE ON audit.caseStages
+        Yii::$app->db->createCommand("CREATE OR REPLACE TRIGGER caseStages_if_modified_trg
+        AFTER INSERT OR UPDATE OR DELETE ON audit.\"caseStages\"
         FOR EACH ROW EXECUTE PROCEDURE audit.if_modified_func();")->execute();
 
-        Yii::$app->db->createCommand("CREATE OR REPLACE TRIGGER t_if_modified_trg 
+        Yii::$app->db->createCommand("CREATE OR REPLACE TRIGGER cases_if_modified_trg
         AFTER INSERT OR UPDATE OR DELETE ON audit.cases
         FOR EACH ROW EXECUTE PROCEDURE audit.if_modified_func();")->execute();
     }

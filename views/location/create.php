@@ -5,7 +5,7 @@ use yii\helpers\Html;
 /** @var yii\web\View $this */
 /** @var app\models\LocationModel $model */
 
-$this->title = 'Create Location Model';
+$this->title = $this->title = $_ENV["APP_NAME"] . ' - Create Location Model';
 $this->params['breadcrumbs'][] = ['label' => 'Location Models', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>

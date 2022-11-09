@@ -29,7 +29,7 @@ class CaseModel extends \yii\db\ActiveRecord
      */
     public static function tableName()
     {
-        if (!$_ENV["DATABASE_SCHEMA"]) {
+        if (!isset($_ENV["DATABASE_SCHEMA"])) {
             return "cases";
         } else {
             return $_ENV["DATABASE_SCHEMA"] . ".cases";

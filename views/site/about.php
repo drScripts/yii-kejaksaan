@@ -4,7 +4,7 @@
 
 use yii\helpers\Html;
 
-$this->title = 'About';
+$this->title = $_ENV["APP_NAME"] . ' - About';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="site-about">

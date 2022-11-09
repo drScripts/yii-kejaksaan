@@ -6,7 +6,7 @@ use yii\widgets\DetailView;
 /** @var yii\web\View $this */
 /** @var app\models\SatKerModel $model */
 
-$this->title = $model->name;
+$this->title = $this->title = $_ENV["APP_NAME"] . " - " . $model->name;
 $this->params['breadcrumbs'][] = ['label' => 'Sat Ker Models', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);

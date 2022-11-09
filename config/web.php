@@ -5,9 +5,9 @@ $db = require __DIR__ . '/db.php';
 
 
 
-$baseUrl = "http://localhost";
+$baseUrl = "http://localhost:8081";
 
-if ($_ENV["BASE_URL"]) {
+if (isset($_ENV["BASE_URL"])) {
     $baseUrl = $_ENV["BASE_URL"];
 }
 

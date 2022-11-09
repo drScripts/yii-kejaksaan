@@ -32,7 +32,7 @@ use yii\helpers\ArrayHelper;
 
     <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'spdpNumber')->input("number", ['maxlength' => true]) ?>
+    <?= $form->field($model, 'spdpNumber')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'spdpDate')->input("date") ?>
 

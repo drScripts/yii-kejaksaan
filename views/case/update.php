@@ -5,7 +5,7 @@ use yii\helpers\Html;
 /** @var yii\web\View $this */
 /** @var app\models\CaseModel $model */
 
-$this->title = 'Update Case Model: ' . $model->name;
+$this->title = $this->title = $_ENV["APP_NAME"] . ' - Update Case Model: ' . $model->name;
 $this->params['breadcrumbs'][] = ['label' => 'Case Models', 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->name, 'url' => ['view', 'id' => $model->id]];
 $this->params['breadcrumbs'][] = 'Update';
