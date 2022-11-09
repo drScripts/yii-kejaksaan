@@ -149,6 +149,7 @@ class MigrateController extends Controller
                     break;
                 case "satker-jakarta-utara":
                     $locationModel->name = "KEJAKSAAN TINGGI DKI JAKARTA";
+                    break;
                 default:
                     $locationModel->name = "KEJAKSAAN TINGGI JAWA TIMUR";
                     break;
@@ -166,6 +167,7 @@ class MigrateController extends Controller
                     break;
                 case "satker-jakarta-utara":
                     $satkerModel->name = "KEJAKSAAN NEGERI JAKARTA UTARA";
+                    break;
                 default:
                     $locationModel->name = "KEJAKSAAN NEGERI SURABAYA";
                     break;
