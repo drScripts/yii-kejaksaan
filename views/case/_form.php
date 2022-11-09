@@ -13,8 +13,8 @@ use yii\helpers\ArrayHelper;
     <?php $form = ActiveForm::begin(); ?>
 
     <?php
-    $dataPost = ArrayHelper::map(\app\models\SatKerModel::find()->asArray()->all(), 'id', 'name');
-    echo $form->field($model, 'satKerId')
+    $dataPost = ArrayHelper::map(\app\models\LocationModel::find()->asArray()->all(), 'id', 'name');
+    echo $form->field($model, 'locationId')
         ->dropDownList(
             $dataPost,
             ['id' => 'name']
@@ -22,8 +22,8 @@ use yii\helpers\ArrayHelper;
     ?>
 
     <?php
-    $dataPost = ArrayHelper::map(\app\models\LocationModel::find()->asArray()->all(), 'id', 'name');
-    echo $form->field($model, 'locationId')
+    $dataPost = ArrayHelper::map(\app\models\SatKerModel::find()->asArray()->all(), 'id', 'name');
+    echo $form->field($model, 'satKerId')
         ->dropDownList(
             $dataPost,
             ['id' => 'name']
@@ -55,7 +55,6 @@ use yii\helpers\ArrayHelper;
             ['id' => 'name']
         );
     ?>
-
 
     <div class="form-group">
         <?= Html::submitButton('Save', ['class' => 'btn btn-success mt-3']) ?>
