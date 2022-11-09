@@ -169,7 +169,7 @@ class MigrateController extends Controller
                     $satkerModel->name = "KEJAKSAAN NEGERI JAKARTA UTARA";
                     break;
                 default:
-                    $locationModel->name = "KEJAKSAAN NEGERI SURABAYA";
+                    $satkerModel->name = "KEJAKSAAN NEGERI SURABAYA";
                     break;
             }
 
