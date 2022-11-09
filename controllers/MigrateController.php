@@ -25,7 +25,7 @@ class MigrateController extends Controller
         if (YII_ENV_DEV) {
             $this->createSchema();
             $this->actionMigrate();
-            $this->attachMigrate();
+            // $this->attachMigrate();
             $this->seedData();
 
             return $this->redirect("/index");
